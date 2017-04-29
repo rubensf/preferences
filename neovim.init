@@ -8,8 +8,10 @@ Plug 'kien/ctrlp.vim'                   " Uses Ctrl+P to search the files on fol
 Plug 'easymotion/vim-easymotion'        " \\w to move around the file efficiently.
 Plug 'airblade/vim-gitgutter'           " Git changes highlighter.
 Plug 'neomake/neomake'                  " A syntax checker. Neovim only.
+Plug 'dojoteef/neomake-autolint'        " Lint for neomake.
 Plug 'dag/vim-fish'                     " Fish syntax.
 Plug 'jez/vim-better-sml'               " SML syntax.
+Plug 'Harenome/vim-mipssyntax'          " Mips syntax.
 Plug 'vim-airline/vim-airline'          " Status bar for vim.
 Plug 'vim-airline/vim-airline-themes'   " Themes for airline.
 Plug 'scrooloose/nerdtree'              " File manager.
@@ -33,13 +35,9 @@ let g:airline_theme= 'wombat'
 " Use AG Silversearch
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" Add a dummy sign so that the sign line is always on.
-" This way code won't keep jumping in the screen.
-sign define dummy
-execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
-
 " Automatically run Neomake.
-autocmd! BufWritePost * Neomake
+autocmd! BufWritePost * Neomake!
+let g:neomake_autolint_sign_column_always = 1
 
 " Nerd commenter settings.
 let g:NERDTrimTrailingWhitespace = 1
@@ -65,6 +63,10 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 
 " No wasting time holding shift to press commands.
 nnoremap ; :
+vnoremap ; :
+
+" Delete trailing spaces.
+autocmd BufWritePost * :%s/\s\+$//e
 
 set hidden              " Yay buffers.
 set showcmd             " Show (partial) command in status line.
@@ -73,7 +75,6 @@ set showmode            " Show current mode.
 set ruler               " Show the line and column numbers of the cursor.
 set nowrap              " No wrapping lines.
 set number              " Show the line numbers on the left side.
-set formatoptions+=o    " Continue comment marker in new lines.
 set expandtab           " Insert spaces when TAB is pressed.
 set tabstop=2           " Render TABs using this many spaces.
 set shiftwidth=2        " Indentation amount for < and > commands.
