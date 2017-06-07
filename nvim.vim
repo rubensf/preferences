@@ -9,20 +9,35 @@ Plug 'easymotion/vim-easymotion'        " \\w to move around the file efficientl
 Plug 'airblade/vim-gitgutter'           " Git changes highlighter.
 Plug 'neomake/neomake'                  " A syntax checker. Neovim only.
 Plug 'dojoteef/neomake-autolint'        " Lint for neomake.
+Plug 'artur-shaik/vim-javacomplete2'    " Super java autocomplete.
 Plug 'dag/vim-fish'                     " Fish syntax.
 Plug 'jez/vim-better-sml'               " SML syntax.
 Plug 'Harenome/vim-mipssyntax'          " Mips syntax.
+Plug 'gisphm/vim-gradle'                " Gradle syntax and utils.
+Plug 'solarnz/thrift.vim'               " Thrift syntax.
+Plug 'vim-ruby/vim-ruby'                " Ruby syntax and utils.
 Plug 'vim-airline/vim-airline'          " Status bar for vim.
 Plug 'vim-airline/vim-airline-themes'   " Themes for airline.
-Plug 'scrooloose/nerdtree'              " File manager.
+Plug 'Shougo/denite.nvim'               " Some cool integration plugin?
+Plug 'scrooloose/nerdtree'              " Tree file manager.
 Plug 'scrooloose/nerdcommenter'         " Easy commenting.
 Plug 'ervandew/supertab'                " Tab autocompletion.
 Plug 'tpope/vim-fugitive'               " Git wrapping for vim.
+Plug 'mhinz/vim-janah'                  " ColorScheme.
 
 call plug#end()
 
 " Map the leader key to SPACE
 let mapleader="\<SPACE>"
+
+" Denite to use ag
+call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
 
 " Airline extensions
 let g:airline_symbols_ascii = 1   " WSL isn't really great with normal chars.
@@ -35,10 +50,21 @@ let g:airline_theme= 'wombat'
 " Use AG Silversearch
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" Automatically run Neomake.
-autocmd! BufWritePost * Neomake!
-let g:neomake_autolint_sign_column_always = 1
+" No limit for ctrl P
+let g:ctrlp_max_files = 0
+let g:ctrlp_max_depth = 40
 
+" Ctrp p ignore .gitignore files.
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+
+" Neomake options.
+au! BufWritePost,BufEnter * Neomake!
+let g:neomake_autolint_sign_column_always = 1
+let g:neomake_logfile = '/tmp/neomake.log'
+
+" Delete trailing spaces on write.
+au BufWritePost * :%s/\s\+$//e
+   
 " Nerd commenter settings.
 let g:NERDTrimTrailingWhitespace = 1
 
@@ -47,9 +73,6 @@ let g:deoplete#enable_at_startup = 1
 
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
-
-" Make sure Neomake runs everytime.
-autocmd! BufWritePost,BufEnter * Neomake
 
 " Shortcut for NERDTree
 nnoremap <Leader>o :NERDTree<CR>
@@ -67,6 +90,10 @@ vnoremap ; :
 
 " Delete trailing spaces.
 autocmd BufWritePost * :%s/\s\+$//e
+
+" Also highlight all tabs and trailing whitespace characters.
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$\|\t/
 
 set hidden              " Yay buffers.
 set showcmd             " Show (partial) command in status line.
@@ -105,10 +132,6 @@ if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 set list                " Show problematic characters.
-
-" Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$\|\t/
 
 set incsearch           " Search as you type.
 set hlsearch            " Highlight search.
