@@ -19,6 +19,7 @@ Plug 'vim-ruby/vim-ruby'                " Ruby syntax and utils.
 Plug 'vim-airline/vim-airline'          " Status bar for vim.
 Plug 'vim-airline/vim-airline-themes'   " Themes for airline.
 Plug 'Shougo/denite.nvim'               " Some cool integration plugin?
+Plug 'Shougo/deol.nvim'                 " Some cool terminal plugin?
 Plug 'scrooloose/nerdtree'              " Tree file manager.
 Plug 'scrooloose/nerdcommenter'         " Easy commenting.
 Plug 'ervandew/supertab'                " Tab autocompletion.
@@ -74,19 +75,23 @@ let g:deoplete#enable_at_startup = 1
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Shortcut for NERDTree
+" NERDTree config.
+let NERDTreeQuitOnOpen=1
 nnoremap <Leader>o :NERDTree<CR>
 
 " Some nice tab shortcuts.
-nnoremap <C-S-tab> :tabprevious<CR>
-nnoremap <C-tab>   :tabnext<CR>
 nnoremap <C-t>     :tabnew<CR>
-inoremap <C-tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
+nnoremap tn        :tabnext<CR>
+nnoremap tl        :tabnext<CR>
+nnoremap th        :tabprev<CR>
+nnoremap td        :tabclose<CR>
 
 " No wasting time holding shift to press commands.
 nnoremap ; :
 vnoremap ; :
+
+" Please, <C-\><C-n> to escape terminal mode? gez.
+tnoremap <Esc> <C-\><C-n>
 
 " Delete trailing spaces.
 autocmd BufWritePost * :%s/\s\+$//e
@@ -113,6 +118,8 @@ set undolevels=1000     " Also much much undos.
 set title               " Change terminal title.
 set visualbell          " No beep.
 set noerrorbells        " No beep.
+
+set mouse=              " Coz who needs a mouse? Also WSL neovim needs this :(
 
 set nobackup            " Screw those backups.
 set noswapfile          " Scre those backups.
