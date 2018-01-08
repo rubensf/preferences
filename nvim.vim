@@ -1,32 +1,45 @@
+set nocompatible
+set runtimepath+=~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/.local/share/nvim/dein')
+  call dein#begin('~/.local/share/nvim/dein')
+
+  call dein#add('neomake/neomake')                 " Making things, I guess.
+  call dein#add('Shougo/deoplete.nvim',
+               \{'on_i': 1})                       " Autocomplete. ** Exclusive to neovim.
+  call dein#add('zchee/deoplete-clang')            " Clang completeion for deoplete.
+  call dein#add('Shougo/neoinclude.vim')           " Some help to read stuff from includes for deoplete.
+  call dein#add('easymotion/vim-easymotion')       " \\w to move around the file efficiently.
+  call dein#add('airblade/vim-gitgutter')          " Git changes highlighter.
+  call dein#add('dag/vim-fish')                    " Fish syntax.
+  call dein#add('jez/vim-better-sml')              " SML syntax.
+  call dein#add('Harenome/vim-mipssyntax')         " Mips syntax.
+  call dein#add('guns/vim-clojure-static')         " Clojure Syntax.
+  call dein#add('tpope/vim-fireplace')             " Clojure REPL.
+  call dein#add('vim-scripts/paredit.vim')         " Pair checker for parenthesis and such.
+  call dein#add('vim-airline/vim-airline')         " Status bar for vim.
+  call dein#add('vim-airline/vim-airline-themes')  " Themes for airline.
+  call dein#add('Shougo/denite.nvim')              " Some cool integration plugin?
+  call dein#add('Shougo/deol.nvim')                " Some cool terminal plugin?
+  call dein#add('scrooloose/nerdtree',
+               \{'on_cmd': 'NERDTreeToggle'})      " File explorer.
+  call dein#add('scrooloose/nerdcommenter')        " Easy commenting.
+  call dein#add('ervandew/supertab')               " Tab autocompletion.
+  call dein#add('tpope/vim-fugitive')              " Git wrapping for vim.
+  call dein#add('junegunn/fzf',
+               \{'build': './install -all',
+               \ 'merged': 0})                     " FZF!
+  call dein#add('junegunn/fzf.vim',
+               \{'depends': 'fzf'})                " FZF on vim!
+
+  call dein#add('tweekmonster/startuptime.vim')    " To understand why do some plugins suck lol.
+
+  call dein#end()
+  call dein#save_state()
+endif
+
 filetype plugin indent on
-
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " Autocomplete. ** Exclusive to neovim.
-Plug 'tweekmonster/deoplete-clang2'     " Clang completeion for deoplete.
-Plug 'kien/ctrlp.vim'                   " Uses Ctrl+P to search the files on folders.
-Plug 'easymotion/vim-easymotion'        " \\w to move around the file efficiently.
-Plug 'airblade/vim-gitgutter'           " Git changes highlighter.
-Plug 'neomake/neomake'                  " A syntax checker. Neovim only.
-Plug 'dojoteef/neomake-autolint'        " Lint for neomake.
-Plug 'artur-shaik/vim-javacomplete2'    " Super java autocomplete.
-Plug 'dag/vim-fish'                     " Fish syntax.
-Plug 'jez/vim-better-sml'               " SML syntax.
-Plug 'Harenome/vim-mipssyntax'          " Mips syntax.
-Plug 'gisphm/vim-gradle'                " Gradle syntax and utils.
-Plug 'solarnz/thrift.vim'               " Thrift syntax.
-Plug 'vim-ruby/vim-ruby'                " Ruby syntax and utils.
-Plug 'vim-airline/vim-airline'          " Status bar for vim.
-Plug 'vim-airline/vim-airline-themes'   " Themes for airline.
-Plug 'Shougo/denite.nvim'               " Some cool integration plugin?
-Plug 'Shougo/deol.nvim'                 " Some cool terminal plugin?
-Plug 'scrooloose/nerdtree'              " Tree file manager.
-Plug 'scrooloose/nerdcommenter'         " Easy commenting.
-Plug 'ervandew/supertab'                " Tab autocompletion.
-Plug 'tpope/vim-fugitive'               " Git wrapping for vim.
-Plug 'mhinz/vim-janah'                  " ColorScheme.
-
-call plug#end()
+syntax enable
 
 " Map the leader key to SPACE
 let mapleader="\<SPACE>"
@@ -51,21 +64,6 @@ let g:airline_theme= 'wombat'
 " Use AG Silversearch
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" No limit for ctrl P
-let g:ctrlp_max_files = 0
-let g:ctrlp_max_depth = 40
-
-" Ctrp p ignore .gitignore files.
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-
-" Neomake options.
-au! BufWritePost,BufEnter * Neomake!
-let g:neomake_autolint_sign_column_always = 1
-let g:neomake_logfile = '/tmp/neomake.log'
-
-" Delete trailing spaces on write.
-au BufWritePost * :%s/\s\+$//e
-   
 " Nerd commenter settings.
 let g:NERDTrimTrailingWhitespace = 1
 
@@ -75,16 +73,37 @@ let g:deoplete#enable_at_startup = 1
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" NERDTree config.
-let NERDTreeQuitOnOpen=1
-nnoremap <Leader>o :NERDTree<CR>
+" Shortcut for NERDTree
+nnoremap <Leader>o :NERDTreeToggle<CR>
+
+" And others for fzf
+nnoremap <Leader>p :Files<CR>
+cabbrev ls Buffers
 
 " Some nice tab shortcuts.
 nnoremap <C-t>     :tabnew<CR>
-nnoremap tn        :tabnext<CR>
-nnoremap tl        :tabnext<CR>
-nnoremap th        :tabprev<CR>
-nnoremap td        :tabclose<CR>
+nnoremap <A-t>n    :tabnext<CR>
+nnoremap <A-t>l    :tabnext<CR>
+nnoremap <A-t>h    :tabprev<CR>
+nnoremap <A-t>d    :tabclose<CR>
+tnoremap <A-t>n    <C-\><C-n>:tabnext<CR>
+tnoremap <A-t>l    <C-\><C-n>:tabnext<CR>
+tnoremap <A-t>h    <C-\><C-n>:tabprev<CR>
+tnoremap <A-t>d    <C-\><C-n>:tabclose<CR>
+
+" Nicer alternating between buffers.
+nnoremap <A-l>     <C-w>l
+nnoremap <A-k>     <C-w>k
+nnoremap <A-j>     <C-w>j
+nnoremap <A-h>     <C-w>h
+inoremap <A-l>     <Esc><C-w>l
+inoremap <A-k>     <Esc><C-w>k
+inoremap <A-j>     <Esc><C-w>j
+inoremap <A-h>     <Esc><C-w>h
+tnoremap <A-l>     <C-\><C-n><C-w>l
+tnoremap <A-k>     <C-\><C-n><C-w>k
+tnoremap <A-j>     <C-\><C-n><C-w>j
+tnoremap <A-h>     <C-\><C-n><C-w>h
 
 " No wasting time holding shift to press commands.
 nnoremap ; :
@@ -96,10 +115,30 @@ tnoremap <Esc> <C-\><C-n>
 " Delete trailing spaces.
 autocmd BufWritePost * :%s/\s\+$//e
 
-" Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
-match ExtraWhitespace /\s\+$\|\t/
+" Neomake configs
+autocmd! BufWritePost,BufEnter * Neomake
+let g:neomake_warning_sign = {
+  \ 'text': 'W',
+  \ 'texthl': 'Warnings',
+  \ }
+let g:neomake_error_sign = {
+  \ 'text': 'E',
+  \ 'texthl': 'Errors',
+  \ }
+let g:neomake_c_enabled_makers = ['clang']
+let g:neomake_c_clang_maker = {
+  \ 'args': ['--std=c++11', '-Wall', '-Wextra', '-pedantic'],
+  \ }
+let g:neomake_cpp_enabled_makers = ['clang']
+let g:neomake_cpp_clang_maker = {
+  \ 'exe': 'clang++',
+  \ 'args': ['--std=c++11', '-Wall', '-Wextra', '-pedantic', '-Wno-sign-conversion'],
+  \ }
 
+" Javacomplete2 config with deoplete.
+set omnifunc=syntaxcomplete#Complete
+
+set mouse=              " Disable weird no rightclick windows paste.
 set hidden              " Yay buffers.
 set showcmd             " Show (partial) command in status line.
 set showmatch           " Show matching brackets.
@@ -119,8 +158,6 @@ set title               " Change terminal title.
 set visualbell          " No beep.
 set noerrorbells        " No beep.
 
-set mouse=              " Coz who needs a mouse? Also WSL neovim needs this :(
-
 set nobackup            " Screw those backups.
 set noswapfile          " Scre those backups.
 
@@ -139,6 +176,10 @@ if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
 set list                " Show problematic characters.
+
+" Also highlight all tabs and trailing whitespace characters.
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$\|\t/
 
 set incsearch           " Search as you type.
 set hlsearch            " Highlight search.
