@@ -4,9 +4,7 @@ set runtimepath+=~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.local/share/nvim/dein')
   call dein#begin('~/.local/share/nvim/dein')
 
-  call dein#add('neomake/neomake')                 " Making things, I guess.
-  call dein#add('Shougo/deoplete.nvim',
-               \{'on_i': 1})                       " Autocomplete. ** Exclusive to neovim.
+  call dein#add('Shougo/deoplete.nvim')            " Autocomplete. ** Exclusive to neovim.
   call dein#add('zchee/deoplete-clang')            " Clang completeion for deoplete.
   call dein#add('Shougo/neoinclude.vim')           " Some help to read stuff from includes for deoplete.
   call dein#add('easymotion/vim-easymotion')       " \\w to move around the file efficiently.
@@ -14,13 +12,17 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('dag/vim-fish')                    " Fish syntax.
   call dein#add('jez/vim-better-sml')              " SML syntax.
   call dein#add('Harenome/vim-mipssyntax')         " Mips syntax.
+  call dein#add('tpope/vim-surround')              " Matches!
   call dein#add('guns/vim-clojure-static')         " Clojure Syntax.
+  call dein#add('clojure-vim/async-clj-highlight') " Clojure highlight.
+  call dein#add('clojure-vim/async-clj-omni')      " Clojure Async Completion for Deoplete.
+  call dein#add('clojure-vim/acid.nvim')           " Clojure... Something.
   call dein#add('tpope/vim-fireplace')             " Clojure REPL.
-  call dein#add('vim-scripts/paredit.vim')         " Pair checker for parenthesis and such.
+  call dein#add('fuadsaud/vim-midje')              " Clojure Midje syntax.
+  call dein#add('kovisoft/paredit')                " Pair checker for parenthesis and such.
   call dein#add('vim-airline/vim-airline')         " Status bar for vim.
   call dein#add('vim-airline/vim-airline-themes')  " Themes for airline.
   call dein#add('Shougo/denite.nvim')              " Some cool integration plugin?
-  call dein#add('Shougo/deol.nvim')                " Some cool terminal plugin?
   call dein#add('scrooloose/nerdtree',
                \{'on_cmd': 'NERDTreeToggle'})      " File explorer.
   call dein#add('scrooloose/nerdcommenter')        " Easy commenting.
@@ -31,15 +33,25 @@ if dein#load_state('~/.local/share/nvim/dein')
                \ 'merged': 0})                     " FZF!
   call dein#add('junegunn/fzf.vim',
                \{'depends': 'fzf'})                " FZF on vim!
-
-  call dein#add('tweekmonster/startuptime.vim')    " To understand why do some plugins suck lol.
+  call dein#add('leafgarland/typescript-vim')      " Ts syntax.
+  call dein#add('mxw/vim-jsx')                     " Jsx syntax.
+  call dein#add('w0rp/ale')                        " Linter
+  call dein#add('tpope/vim-eunuch')                " Unix utilities
+  call dein#add('tpope/vim-salve')                 " Sattic support for leiningen and boot.
 
   call dein#end()
   call dein#save_state()
 endif
 
+if dein#check_install()
+  call dein#install()
+endif
+
+" Clean autocommands
+autocmd!
+
 filetype plugin indent on
-syntax enable
+syntax on
 
 " Map the leader key to SPACE
 let mapleader="\<SPACE>"
@@ -69,6 +81,10 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " Have Deople (autocomplete) work at startup.
 let g:deoplete#enable_at_startup = 1
+
+" Deople Config for clojure
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -114,29 +130,6 @@ tnoremap <Esc> <C-\><C-n>
 
 " Delete trailing spaces.
 autocmd BufWritePost * :%s/\s\+$//e
-
-" Neomake configs
-autocmd! BufWritePost,BufEnter * Neomake
-let g:neomake_warning_sign = {
-  \ 'text': 'W',
-  \ 'texthl': 'Warnings',
-  \ }
-let g:neomake_error_sign = {
-  \ 'text': 'E',
-  \ 'texthl': 'Errors',
-  \ }
-let g:neomake_c_enabled_makers = ['clang']
-let g:neomake_c_clang_maker = {
-  \ 'args': ['--std=c++11', '-Wall', '-Wextra', '-pedantic'],
-  \ }
-let g:neomake_cpp_enabled_makers = ['clang']
-let g:neomake_cpp_clang_maker = {
-  \ 'exe': 'clang++',
-  \ 'args': ['--std=c++11', '-Wall', '-Wextra', '-pedantic', '-Wno-sign-conversion'],
-  \ }
-
-" Javacomplete2 config with deoplete.
-set omnifunc=syntaxcomplete#Complete
 
 set mouse=              " Disable weird no rightclick windows paste.
 set hidden              " Yay buffers.
@@ -195,8 +188,39 @@ endi
 
 set termguicolors
 
+" Fzf stuff
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Unmap arrow keys.
 nnoremap <Up> <NOP>
 nnoremap <Right> <NOP>
 nnoremap <Left> <NOP>
 nnoremap <Down> <NOP>
+
+" Ale Goto
+nnoremap <F2> :ALEGoToDefinition<CR>
+nnoremap <F3> :ALEGoToDefinitionInTab<CR>
+
+" " Copy to clipboard
+vnoremap  <Leader>y  "+y
+nnoremap  <Leader>Y  "+yg_
+nnoremap  <Leader>y  "+y
+
+" " Paste from clipboard
+nnoremap <C-v> "+p
+nnoremap <A-v> "+P
+vnoremap <C-v> "+p
+vnoremap <A-v> "+P
