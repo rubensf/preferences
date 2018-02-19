@@ -38,6 +38,9 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('w0rp/ale')                        " Linter
   call dein#add('tpope/vim-eunuch')                " Unix utilities
   call dein#add('tpope/vim-salve')                 " Sattic support for leiningen and boot.
+  call dein#add('majutsushi/tagbar')               " Tagbar
+  call dein#add('Kuniwak/vint')                    " Vim linter
+  call dein#add('junegunn/vader.vim')              " Vim Test Framework
 
   call dein#end()
   call dein#save_state()
@@ -189,6 +192,9 @@ endi
 set termguicolors
 
 " Fzf stuff
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -204,6 +210,12 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+
 " Unmap arrow keys.
 nnoremap <Up> <NOP>
 nnoremap <Right> <NOP>
@@ -213,6 +225,11 @@ nnoremap <Down> <NOP>
 " Ale Goto
 nnoremap <F2> :ALEGoToDefinition<CR>
 nnoremap <F3> :ALEGoToDefinitionInTab<CR>
+nnoremap <F4> :ALEGoToDefinitionInSplit<CR>
+nnoremap <F5> :ALEGoToDefinitionInVSplit<CR>
+
+" Tagbar
+nnoremap <F8> :TagbarToggle<CR>
 
 " " Copy to clipboard
 vnoremap  <Leader>y  "+y
