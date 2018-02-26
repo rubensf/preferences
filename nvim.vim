@@ -95,22 +95,22 @@ let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " Shortcut for NERDTree
-nnoremap <Leader>o :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
 " And others for fzf
 nnoremap <Leader>p :Files<CR>
 cabbrev ls Buffers
 
 " Some nice tab shortcuts.
-nnoremap <C-t>     :tabnew<CR>
-nnoremap <A-t>n    :tabnext<CR>
-nnoremap <A-t>l    :tabnext<CR>
-nnoremap <A-t>h    :tabprev<CR>
-nnoremap <A-t>d    :tabclose<CR>
-tnoremap <A-t>n    <C-\><C-n>:tabnext<CR>
-tnoremap <A-t>l    <C-\><C-n>:tabnext<CR>
-tnoremap <A-t>h    <C-\><C-n>:tabprev<CR>
-tnoremap <A-t>d    <C-\><C-n>:tabclose<CR>
+nnoremap <silent> <C-t>     :tabnew<CR>
+nnoremap <silent> <A-t>n    :tabnext<CR>
+nnoremap <silent> <A-t>l    :tabnext<CR>
+nnoremap <silent> <A-t>h    :tabprev<CR>
+nnoremap <silent> <A-t>d    :tabclose<CR>
+tnoremap <silent> <A-t>n    <C-\><C-n>:tabnext<CR>
+tnoremap <silent> <A-t>l    <C-\><C-n>:tabnext<CR>
+tnoremap <silent> <A-t>h    <C-\><C-n>:tabprev<CR>
+tnoremap <silent> <A-t>d    <C-\><C-n>:tabclose<CR>
 
 " Nicer alternating between buffers.
 nnoremap <A-l>     <C-w>l
@@ -215,6 +215,7 @@ command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
 " Unmap arrow keys.
 nnoremap <Up> <NOP>
@@ -223,10 +224,10 @@ nnoremap <Left> <NOP>
 nnoremap <Down> <NOP>
 
 " Ale Goto
-nnoremap <F2> :ALEGoToDefinition<CR>
-nnoremap <F3> :ALEGoToDefinitionInTab<CR>
-nnoremap <F4> :ALEGoToDefinitionInSplit<CR>
-nnoremap <F5> :ALEGoToDefinitionInVSplit<CR>
+nnoremap <silent> <F2> :ALEGoToDefinition<CR>
+nnoremap <silent> <F3> :ALEGoToDefinitionInTab<CR>
+nnoremap <silent> <F4> :ALEGoToDefinitionInSplit<CR>
+nnoremap <silent> <F5> :ALEGoToDefinitionInVSplit<CR>
 
 " More natural splits
 set splitbelow
@@ -236,9 +237,9 @@ set splitright
 nnoremap <F8> :TagbarToggle<CR>
 
 " " Copy to clipboard
-vnoremap  <Leader>y  "+y
-nnoremap  <Leader>Y  "+yg_
-nnoremap  <Leader>y  "+y
+vnoremap <Leader>y  "+y
+nnoremap <Leader>Y  "+yg_
+nnoremap <Leader>y  "+y
 
 " " Paste from clipboard
 nnoremap <C-v> "+p
