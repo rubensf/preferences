@@ -228,6 +228,10 @@ nnoremap <F3> :ALEGoToDefinitionInTab<CR>
 nnoremap <F4> :ALEGoToDefinitionInSplit<CR>
 nnoremap <F5> :ALEGoToDefinitionInVSplit<CR>
 
+" More natural splits
+set splitbelow
+set splitright
+
 " Tagbar
 nnoremap <F8> :TagbarToggle<CR>
 
