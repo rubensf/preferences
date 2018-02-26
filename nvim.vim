@@ -5,6 +5,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#begin('~/.local/share/nvim/dein')
 
   call dein#add('Shougo/deoplete.nvim')            " Autocomplete. ** Exclusive to neovim.
+  call dein#add('mhartington/nvim-typescript')     " Deoplete integration for typescript.
   call dein#add('zchee/deoplete-clang')            " Clang completeion for deoplete.
   call dein#add('Shougo/neoinclude.vim')           " Some help to read stuff from includes for deoplete.
   call dein#add('easymotion/vim-easymotion')       " \\w to move around the file efficiently.
@@ -16,7 +17,6 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('guns/vim-clojure-static')         " Clojure Syntax.
   call dein#add('clojure-vim/async-clj-highlight') " Clojure highlight.
   call dein#add('clojure-vim/async-clj-omni')      " Clojure Async Completion for Deoplete.
-  call dein#add('clojure-vim/acid.nvim')           " Clojure... Something.
   call dein#add('tpope/vim-fireplace')             " Clojure REPL.
   call dein#add('fuadsaud/vim-midje')              " Clojure Midje syntax.
   call dein#add('kovisoft/paredit')                " Pair checker for parenthesis and such.
@@ -39,8 +39,10 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('tpope/vim-eunuch')                " Unix utilities
   call dein#add('tpope/vim-salve')                 " Sattic support for leiningen and boot.
   call dein#add('majutsushi/tagbar')               " Tagbar
+  call dein#add('Yggdroot/indentLine')             " Coz lines are cool
   call dein#add('Kuniwak/vint')                    " Vim linter
   call dein#add('junegunn/vader.vim')              " Vim Test Framework
+  call dein#add('morhetz/gruvbox')                 " Better colorscheme
 
   call dein#end()
   call dein#save_state()
@@ -189,8 +191,6 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endi
 
-set termguicolors
-
 " Fzf stuff
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -241,3 +241,7 @@ nnoremap <C-v> "+p
 nnoremap <A-v> "+P
 vnoremap <C-v> "+p
 vnoremap <A-v> "+P
+
+set background=dark
+set termguicolors
+
