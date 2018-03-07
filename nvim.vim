@@ -4,6 +4,10 @@ set runtimepath+=~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.local/share/nvim/dein')
   call dein#begin('~/.local/share/nvim/dein')
 
+  " Dein path
+  call dein#add('~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim')
+
+  call dein#add('BurningEther/iron.nvim')          " Automatic REPL setup.
   call dein#add('Shougo/deoplete.nvim')            " Autocomplete. ** Exclusive to neovim.
   call dein#add('mhartington/nvim-typescript')     " Deoplete integration for typescript.
   call dein#add('zchee/deoplete-clang')            " Clang completeion for deoplete.
@@ -17,7 +21,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('guns/vim-clojure-static')         " Clojure Syntax.
   call dein#add('clojure-vim/async-clj-highlight') " Clojure highlight.
   call dein#add('clojure-vim/async-clj-omni')      " Clojure Async Completion for Deoplete.
-  call dein#add('tpope/vim-fireplace')             " Clojure REPL.
+  call dein#add('tpope/vim-fireplace')             " Clojure help stuff.
   call dein#add('fuadsaud/vim-midje')              " Clojure Midje syntax.
   call dein#add('kovisoft/paredit')                " Pair checker for parenthesis and such.
   call dein#add('vim-airline/vim-airline')         " Status bar for vim.
@@ -43,6 +47,9 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('Kuniwak/vint')                    " Vim linter
   call dein#add('junegunn/vader.vim')              " Vim Test Framework
   call dein#add('morhetz/gruvbox')                 " Better colorscheme
+  call dein#add('junegunn/gv.vim')                 " Commit Visualization
+  call dein#add('tpope/vim-repeat')                " Make repeats better
+  call dein#add('tpope/vim-rhubarb')               " Github support for vim.
 
   call dein#end()
   call dein#save_state()
@@ -57,6 +64,10 @@ autocmd!
 
 filetype plugin indent on
 syntax on
+
+augroup filetypedetect
+  au BufRead,BufNewFile *.json.base set filetype=json
+augroup END
 
 " Map the leader key to SPACE
 let mapleader="\<SPACE>"
@@ -77,12 +88,14 @@ let g:airline_left_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_right_alt_sep = '|'
 let g:airline_theme= 'wombat'
+let g:airline#extensions#ale#enabled = 1
 
 " Use AG Silversearch
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Nerd commenter settings.
 let g:NERDTrimTrailingWhitespace = 1
+let g:NERDSpaceDelims = 1
 
 " Have Deople (autocomplete) work at startup.
 let g:deoplete#enable_at_startup = 1
@@ -94,12 +107,39 @@ let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+" Fzf stuff
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>aG :Ag! <C-R><C-W><CR>
+
 " Shortcut for NERDTree
 nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
 " And others for fzf
-nnoremap <Leader>p :Files<CR>
-cabbrev ls Buffers
+nnoremap <silent> <Leader>p :Files<CR>
+nnoremap <silent> <Leader>b :Buffers<CR>
 
 " Some nice tab shortcuts.
 nnoremap <silent> <C-t>     :tabnew<CR>
@@ -191,32 +231,6 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 endi
 
-" Fzf stuff
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-
 " Unmap arrow keys.
 nnoremap <Up> <NOP>
 nnoremap <Right> <NOP>
@@ -242,11 +256,8 @@ nnoremap <Leader>Y  "+yg_
 nnoremap <Leader>y  "+y
 
 " " Paste from clipboard
-nnoremap <C-v> "+p
 nnoremap <A-v> "+P
-vnoremap <C-v> "+p
 vnoremap <A-v> "+P
 
 set background=dark
 set termguicolors
-
