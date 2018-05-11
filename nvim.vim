@@ -37,8 +37,9 @@ if dein#load_state('~/.local/share/nvim/dein')
                \ 'merged': 0})                     " FZF!
   call dein#add('junegunn/fzf.vim',
                \{'depends': 'fzf'})                " FZF on vim!
-  call dein#add('leafgarland/typescript-vim')      " Ts syntax.
-  call dein#add('mxw/vim-jsx')                     " Jsx syntax.
+  call dein#add('othree/yajs.vim')                 " Js syntax.
+  call dein#add('HerringtonDarkholme/yats.vim')    " Ts syntax.
+  call dein#add('peitalin/vim-jsx-typescript')     " Jsx pretty.
   call dein#add('w0rp/ale')                        " Linter
   call dein#add('tpope/vim-eunuch')                " Unix utilities
   call dein#add('tpope/vim-salve')                 " Sattic support for leiningen and boot.
@@ -50,6 +51,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('junegunn/gv.vim')                 " Commit Visualization
   call dein#add('tpope/vim-repeat')                " Make repeats better
   call dein#add('tpope/vim-rhubarb')               " Github support for vim.
+  call dein#add('simnalamburt/vim-mundo')          " Undo visualization tree.
 
   call dein#end()
   call dein#save_state()
@@ -137,6 +139,9 @@ nnoremap <silent> <Leader>aG :Ag! <C-R><C-W><CR>
 " Shortcut for NERDTree
 nnoremap <silent> <Leader>o :NERDTreeToggle<CR>
 
+" Shortcut for Mundo
+nnoremap <Leader>u :MundoToggle<CR>
+
 " And others for fzf
 nnoremap <silent> <Leader>p :Files<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
@@ -175,6 +180,7 @@ tnoremap <Esc> <C-\><C-n>
 
 " Delete trailing spaces.
 autocmd BufWritePost * :%s/\s\+$//e
+autocmd BufWritePost * :%s/\($\n\s*\)\+\%$//e
 
 set mouse=              " Disable weird no rightclick windows paste.
 set hidden              " Yay buffers.
@@ -242,6 +248,8 @@ nnoremap <silent> <F2> :ALEGoToDefinition<CR>
 nnoremap <silent> <F3> :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <F4> :ALEGoToDefinitionInSplit<CR>
 nnoremap <silent> <F5> :ALEGoToDefinitionInVSplit<CR>
+
+let g:ale_completion_enabled = 1
 
 " More natural splits
 set splitbelow
