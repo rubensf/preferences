@@ -52,6 +52,9 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('tpope/vim-repeat')                " Make repeats better
   call dein#add('tpope/vim-rhubarb')               " Github support for vim.
   call dein#add('simnalamburt/vim-mundo')          " Undo visualization tree.
+  call dein#add('fatih/vim-go')                    " Go!!!
+  call dein#add('wsdjeg/dein-ui.vim')              " Finally a UI for dein.
+  call dein#add('direnv/direnv.vim')               " Coz nvim doesn't get direnv vars.
 
   call dein#end()
   call dein#save_state()
@@ -109,6 +112,10 @@ let g:deoplete#keyword_patterns.clojure = '[\w!$%&*+/:<=>?@\^_~\-\.#]*'
 " Supertab go from top to bottom.
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
+" Better easymotion
+map \ <Plug>(easymotion-prefix)
+let g:EasyMotion_smartcase = 1
+
 " Fzf stuff
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
@@ -147,29 +154,30 @@ nnoremap <silent> <Leader>p :Files<CR>
 nnoremap <silent> <Leader>b :Buffers<CR>
 
 " Some nice tab shortcuts.
-nnoremap <silent> <C-t>     :tabnew<CR>
-nnoremap <silent> <A-t>n    :tabnext<CR>
-nnoremap <silent> <A-t>l    :tabnext<CR>
-nnoremap <silent> <A-t>h    :tabprev<CR>
-nnoremap <silent> <A-t>d    :tabclose<CR>
-tnoremap <silent> <A-t>n    <C-\><C-n>:tabnext<CR>
-tnoremap <silent> <A-t>l    <C-\><C-n>:tabnext<CR>
-tnoremap <silent> <A-t>h    <C-\><C-n>:tabprev<CR>
-tnoremap <silent> <A-t>d    <C-\><C-n>:tabclose<CR>
+nnoremap <silent> <C-t>      :tabnew<CR>
+nnoremap <silent> <M-t><M-t> :tabnew<CR>
+nnoremap <silent> <M-t>n     :tabnext<CR>
+nnoremap <silent> <M-t>l     :tabnext<CR>
+nnoremap <silent> <M-t>h     :tabprev<CR>
+nnoremap <silent> <M-t>d     :tabclose<CR>
+tnoremap <silent> <M-t>n     <C-\><C-n>:tabnext<CR>
+tnoremap <silent> <M-t>l     <C-\><C-n>:tabnext<CR>
+tnoremap <silent> <M-t>h     <C-\><C-n>:tabprev<CR>
+tnoremap <silent> <M-t>d     <C-\><C-n>:tabclose<CR>
 
 " Nicer alternating between buffers.
-nnoremap <A-l>     <C-w>l
-nnoremap <A-k>     <C-w>k
-nnoremap <A-j>     <C-w>j
-nnoremap <A-h>     <C-w>h
-inoremap <A-l>     <Esc><C-w>l
-inoremap <A-k>     <Esc><C-w>k
-inoremap <A-j>     <Esc><C-w>j
-inoremap <A-h>     <Esc><C-w>h
-tnoremap <A-l>     <C-\><C-n><C-w>l
-tnoremap <A-k>     <C-\><C-n><C-w>k
-tnoremap <A-j>     <C-\><C-n><C-w>j
-tnoremap <A-h>     <C-\><C-n><C-w>h
+nnoremap <M-l>     <C-w>l
+nnoremap <M-k>     <C-w>k
+nnoremap <M-j>     <C-w>j
+nnoremap <M-h>     <C-w>h
+inoremap <M-l>     <Esc><C-w>l
+inoremap <M-k>     <Esc><C-w>k
+inoremap <M-j>     <Esc><C-w>j
+inoremap <M-h>     <Esc><C-w>h
+tnoremap <M-l>     <C-\><C-n><C-w>l
+tnoremap <M-k>     <C-\><C-n><C-w>k
+tnoremap <M-j>     <C-\><C-n><C-w>j
+tnoremap <M-h>     <C-\><C-n><C-w>h
 
 " No wasting time holding shift to press commands.
 nnoremap ; :
@@ -258,14 +266,14 @@ set splitright
 " Tagbar
 nnoremap <F8> :TagbarToggle<CR>
 
-" " Copy to clipboard
+" Copy to clipboard
 vnoremap <Leader>y  "+y
 nnoremap <Leader>Y  "+yg_
 nnoremap <Leader>y  "+y
 
-" " Paste from clipboard
-nnoremap <A-v> "+P
-vnoremap <A-v> "+P
+" Paste from clipboard
+nnoremap <M-v> "+P
+vnoremap <M-v> "+P
 
 set background=dark
 set termguicolors
