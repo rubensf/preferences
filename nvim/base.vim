@@ -27,6 +27,23 @@ set shiftwidth=2         " Indentation amount for < and > commands.
 set backspace=indent,eol,start "Let backspaces be useful (ie delete newline).
 set autoindent           " Self explanatory.
 
+set history=1000        " Much much history.
+set undolevels=1000     " Also much much undos.
+set title               " Change terminal title.
+set visualbell          " No beep.
+set noerrorbells        " No beep.
+
+set nobackup            " No backups. Awful stuff.
+set nowritebackup
+set noswapfile
+
+if !&scrolloff
+  set scrolloff=5       " Show next 3 lines while scrolling.
+endif
+if !&sidescrolloff
+  set sidescrolloff=5   " Show next 5 columns while side-scrolling.
+endif
+
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines. VERY useful!
 if &listchars ==# 'eol:$'
@@ -40,4 +57,8 @@ match ExtraWhitespace /\s\+$\|\t/
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endi
+endif
+
+" Delete trailing spaces.
+autocmd BufWritePost * :%s/\s\+$//e
+autocmd BufWritePost * :%s/\($\n\s*\)\+\%$//e
