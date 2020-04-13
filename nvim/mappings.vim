@@ -1,3 +1,7 @@
+" No wasting time holding shift to press commands.
+nnoremap ; :
+vnoremap ; :
+
 " Unmap arrow keys.
 nnoremap <Up> <NOP>
 nnoremap <Right> <NOP>
@@ -38,3 +42,6 @@ tnoremap <silent> <M-t>n     <C-\><C-n>:tabnext<CR>
 tnoremap <silent> <M-t>l     <C-\><C-n>:tabnext<CR>
 tnoremap <silent> <M-t>h     <C-\><C-n>:tabprev<CR>
 tnoremap <silent> <M-t>d     <C-\><C-n>:tabclose<CR>
+
+" Please, <C-\><C-n> to escape terminal mode? gez.
+tnoremap <Esc> <C-\><C-n>
