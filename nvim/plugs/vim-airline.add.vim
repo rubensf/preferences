@@ -12,3 +12,6 @@ let g:airline_symbols.crypt = '🔒'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.linenr = '¶'
 let g:airline_symbols.maxlinenr = '㏑'
+
+" Highlighting is apparently very slow
+let g:airline_highlighting_cache = 1

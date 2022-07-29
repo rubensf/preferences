@@ -45,3 +45,13 @@ tnoremap <silent> <M-t>d     <C-\><C-n>:tabclose<CR>
 
 " Please, <C-\><C-n> to escape terminal mode? gez.
 tnoremap <Esc> <C-\><C-n>
+
+" Profiling helpers
+nnoremap <silent> <leader>PI :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
+nnoremap <silent> <leader>PP :exe ":profile pause"<cr>
+nnoremap <silent> <leader>PC :exe ":profile continue"<cr>
+nnoremap <silent> <leader>PQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
+
+" Single inserts
+nnoremap ,i :exec "normal i".nr2char(getchar())."\e"<CR>
+nnoremap ,a :exec "normal a".nr2char(getchar())."\e"<CR>

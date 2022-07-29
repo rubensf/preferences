@@ -14,6 +14,10 @@ nmap <silent> gr <Plug>(coc-references)
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" Formatting selected code.
+xmap <leader>f <Plug>(coc-format-selected)
+nmap <leader>f <Plug>(coc-format-selected)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -40,3 +44,15 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c :<C-u>CocList commands<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
+" Resume latest coc list.
+nnoremap <silent> <space>p :<C-u>CocListResume<CR>
