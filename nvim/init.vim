@@ -85,6 +85,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('othree/yajs.vim',              {'on_ft': 'javascript'})
   call dein#add('HerringtonDarkholme/yats.vim', {'on_ft': 'typescript'})
   call dein#add('hashivim/vim-terraform',       {'on_ft': 'terraform'})
+  call dein#add('preservim/vim-markdown',       {'on_ft': 'md'})
 
   call dein#end()
   call dein#save_state()
