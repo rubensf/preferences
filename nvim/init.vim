@@ -16,14 +16,16 @@ let s:plugsdir = s:rcdir . 'plugs/'
 let s:vimrcs = glob(s:rcdir    . '*.vim', v:false, v:true)
            \ + glob(s:plugsdir . '*.vim', v:false, v:true)
 
-set runtimepath+=~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim
+let s:dein_plugs_path = '~/.local/share/nvim/dein'
+let s:dein_self_plug_path = s:dein_plugs_path . '/repos/github.com/Shougo/dein.vim'
+set runtimepath+=s:dein_self_plug_path
 
 let g:dein#auto_recache = 1
-if dein#load_state('~/.local/share/nvim/dein')
-  call dein#begin('~/.local/share/nvim/dein', s:vimrcs)
+if dein#load_state(s:dein_plugs_path)
+  call dein#begin(s:dein_plugs_path, s:vimrcs)
 
   " Let Dein manage itself
-  call dein#add('~/.local/share/nvim/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add(s:dein_self_plug_path)
   " LSP
   call dein#add('neoclide/coc.nvim', {'merged': 0, 'rev': 'release'})
   " UI For updating Dein
