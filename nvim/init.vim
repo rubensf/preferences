@@ -18,7 +18,7 @@ let s:vimrcs = glob(s:rcdir    . '*.vim', v:false, v:true)
 
 let s:dein_plugs_path = '~/.local/share/nvim/dein'
 let s:dein_self_plug_path = s:dein_plugs_path . '/repos/github.com/Shougo/dein.vim'
-set runtimepath+=s:dein_self_plug_path
+exec 'set runtimepath+=' . s:dein_self_plug_path
 
 let g:dein#auto_recache = 1
 if dein#load_state(s:dein_plugs_path)
