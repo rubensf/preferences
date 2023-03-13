@@ -70,6 +70,8 @@ if dein#load_state(s:dein_plugs_path)
   call dein#add('tpope/vim-sleuth')
   " Smooth scroll is important
   call dein#add('psliwka/vim-smoothie')
+  " Handle Direnv properly
+  call dein#add('direnv/direnv.vim')
   " Extract character metadata.
   call dein#add('tpope/vim-characterize', {'on_map': ['ga']})
 
@@ -88,6 +90,7 @@ if dein#load_state(s:dein_plugs_path)
   call dein#add('HerringtonDarkholme/yats.vim', {'on_ft': 'typescript'})
   call dein#add('hashivim/vim-terraform',       {'on_ft': 'terraform'})
   call dein#add('preservim/vim-markdown',       {'on_ft': 'md'})
+
 
   call dein#end()
   call dein#save_state()
