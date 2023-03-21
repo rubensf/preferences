@@ -70,3 +70,6 @@ let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 
 " Bearable colors
 let $LSCOLORS = "GxFxBxDxCxegedabagacad"
+
+" GShow to check all the diffs
+command -nargs=? -bar GShow call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}')) | cw

@@ -32,7 +32,7 @@ if dein#load_state(s:dein_plugs_path)
   call dein#add('wsdjeg/dein-ui.vim', {'on_cmd': 'DeinUpdate'})
 
   " Git Utilities
-  call dein#add('tpope/vim-fugitive', {'on_cmd': ['G', 'Git', 'Ggrep', 'Glgrep', 'Gclog', 'Gllog', 'Gcd', 'Glcd', 'Gedit', 'Gsplit', 'Gvsplit', 'Gtabedit', 'Gpedit', 'Gread', 'Gwrite', 'Gwq', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit', 'GMove', 'GRename', 'GBrowse']})
+  call dein#add('tpope/vim-fugitive', {'on_cmd': ['G', 'Git', 'Ggrep', 'Glgrep', 'Gclog', 'Gllog', 'Gcd', 'Glcd', 'Gedit', 'Gsplit', 'Gvsplit', 'Gtabedit', 'Gpedit', 'Gread', 'Gwrite', 'Gwq', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit', 'GMove', 'GRename', 'GBrowse', 'GShow']})
   call dein#add('tpope/vim-rhubarb', {'depends': 'vim-fugitive'})
   call dein#add('junegunn/gv.vim', {'depends': 'vim-fugitive', 'on_cmd': ['GV']})
   call dein#add('airblade/vim-gitgutter')
