@@ -4,7 +4,7 @@ end
 
 # Install nvr first!
 function nvim
-  if test -z $NVIM_LISTEN_ADDRESS
+  if test -z $NVIM
     /usr/local/bin/nvim $argv
   else
     which nvr > /dev/null; and nvr --remote-tab $argv
