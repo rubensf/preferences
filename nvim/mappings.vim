@@ -39,9 +39,20 @@ nnoremap <silent> <M-t>l     :tabnext<CR>
 nnoremap <silent> <M-t>h     :tabprev<CR>
 nnoremap <silent> <M-t>d     :tabclose<CR>
 tnoremap <silent> <M-t>n     <C-\><C-n>:tabnext<CR>
-tnoremap <silent> <M-t>l     <C-\><C-n>:tabnext<CR>
-tnoremap <silent> <M-t>h     <C-\><C-n>:tabprev<CR>
 tnoremap <silent> <M-t>d     <C-\><C-n>:tabclose<CR>
+
+nnoremap <silent> <M-d>     :resize +1<CR>
+nnoremap <silent> <M-b>     :resize +10<CR>
+nnoremap <silent> <M-u>     :resize -1<CR>
+nnoremap <silent> <M-f>     :resize -10<CR>
+tnoremap <silent> <M-d>     <Esc>:resize +1<CR>
+tnoremap <silent> <M-b>     <Esc>:resize +10<CR>
+tnoremap <silent> <M-u>     <Esc>:resize -1<CR>
+tnoremap <silent> <M-f>     <Esc>:resize -10<CR>
+inoremap <silent> <M-d>     <Esc>:resize +1<CR>
+inoremap <silent> <M-b>     <Esc>:resize +10<CR>
+inoremap <silent> <M-u>     <Esc>:resize -1<CR>
+inoremap <silent> <M-f>     <Esc>:resize -10<CR>
 
 " Please, <C-\><C-n> to escape terminal mode? gez.
 tnoremap <Esc> <C-\><C-n>

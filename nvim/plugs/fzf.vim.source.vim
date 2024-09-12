@@ -1,4 +1,4 @@
-" [Buffers] Jump to the existing window if possible
+" " Initialize configuration dictionary
 let g:fzf_buffers_jump = 1
 let g:fzf_tags_command = 'ag -l | ctags --links=no -L-'
 let g:fzf_layout = {'down': '40%'}
