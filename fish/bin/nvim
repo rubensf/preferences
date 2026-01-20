@@ -1,0 +1,6 @@
+#!/opt/homebrew/bin/fish
+if test -z $NVIM
+  /opt/homebrew/bin/nvim $argv
+else
+  which nvr > /dev/null; and nvr --remote-tab $argv
+end
