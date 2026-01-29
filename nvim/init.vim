@@ -28,8 +28,6 @@ if dein#load_state(s:dein_plugs_path)
   call dein#add(s:dein_self_plug_path)
   " LSP
   call dein#add('neoclide/coc.nvim', {'merged': 0, 'rev': 'release'})
-  " UI For updating Dein
-  call dein#add('wsdjeg/dein-ui.vim', {'on_cmd': 'DeinUpdate'})
 
   " Git Utilities
   call dein#add('tpope/vim-fugitive', {'on_cmd': ['G', 'Git', 'Ggrep', 'Glgrep', 'Gclog', 'Gllog', 'Gcd', 'Glcd', 'Gedit', 'Gsplit', 'Gvsplit', 'Gtabedit', 'Gpedit', 'Gread', 'Gwrite', 'Gwq', 'Gdiffsplit', 'Gvdiffsplit', 'Ghdiffsplit', 'GMove', 'GRename', 'GBrowse', 'GShow']})
