@@ -27,8 +27,6 @@ set -xg LSCOLORS GxBxhxDxfxhxhxhxhxcxcx
 
 if status --is-interactive
   rbenv init - --no-rehash fish | source
-
-  set -xg FZF_CTRL_R_COMMAND _atuin_search
   fzf --fish | source
   atuin init fish --disable-up-arrow --disable-ctrl-r | source
 end
