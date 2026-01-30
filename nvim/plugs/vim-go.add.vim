@@ -1,0 +1,7 @@
+autocmd FileType go nmap <silent> gd <Plug>(go-def)
+autocmd FileType go nmap <silent> gs <Plug>(go-def-pop)
+autocmd FileType go nmap <silent> gS <Plug>(go-def-stack)
+autocmd FileType go nmap <silent> gf <Plug>(go-fmt)
+autocmd FileType go nmap <silent> gq <Plug>(go-test-func)
+autocmd FileType go nmap <silent> gl <Plug>(go-implements)
+autocmd FileType go nmap <silent> gz <Plug>(go-doc)
