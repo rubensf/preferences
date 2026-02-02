@@ -65,6 +65,9 @@ endif
 autocmd BufWritePost * :%s/\s\+$//e
 autocmd BufWritePost * :%s/\($\n\s*\)\+\%$//e
 
+" Starlark
+autocmd BufRead,BufNewFile *.star set filetype=python
+
 " Make sure nvim creates new tab
 let $GIT_EDITOR = 'nvr -cc split --remote-wait'
 
