@@ -22,10 +22,10 @@ nnoremap <M-l> <C-w>l
 nnoremap <M-k> <C-w>k
 nnoremap <M-j> <C-w>j
 nnoremap <M-h> <C-w>h
-inoremap <M-l> <Esc><C-w>l
-inoremap <M-k> <Esc><C-w>k
-inoremap <M-j> <Esc><C-w>j
-inoremap <M-h> <Esc><C-w>h
+inoremap <M-l> <C-\><C-n><C-w>l
+inoremap <M-k> <C-\><C-n><C-w>k
+inoremap <M-j> <C-\><C-n><C-w>j
+inoremap <M-h> <C-\><C-n><C-w>h
 tnoremap <M-l> <C-\><C-n><C-w>l
 tnoremap <M-k> <C-\><C-n><C-w>k
 tnoremap <M-j> <C-\><C-n><C-w>j

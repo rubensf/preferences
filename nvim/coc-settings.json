@@ -7,6 +7,16 @@
       "goplsOptions": {
         "completeUnimported": true
       }
+    },
+    "python": {
+      "command": "/Library/Frameworks/Python.framework/Versions/3.13/bin/pylsp",
+      "filetypes": ["python"],
+      "rootPatterns": [
+        "pyproject.toml",
+        "setup.py",
+        "requirements.txt",
+        ".git/"
+      ]
     }
   }
 }
