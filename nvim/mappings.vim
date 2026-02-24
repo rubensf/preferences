@@ -56,6 +56,8 @@ inoremap <silent> <M-f>     <Esc>:resize -10<CR>
 
 " Please, <C-\><C-n> to escape terminal mode? gez.
 tnoremap <Esc> <C-\><C-n>
+nnoremap <silent> <leader>q :tnoremap <lt>Esc> <lt>C-\><lt>C-n><CR>
+nnoremap <silent> <leader>Q :tnoremap <lt>Esc> <lt>Esc><CR>
 
 " Profiling helpers
 nnoremap <silent> <leader>PI :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
