@@ -56,8 +56,7 @@ inoremap <silent> <M-f>     <Esc>:resize -10<CR>
 
 " Please, <C-\><C-n> to escape terminal mode? gez.
 tnoremap <Esc> <C-\><C-n>
-nnoremap <silent> <leader>q :tnoremap <lt>Esc> <lt>C-\><lt>C-n><CR>
-nnoremap <silent> <leader>Q :tnoremap <lt>Esc> <lt>Esc><CR>
+tnoremap <silent> <Leader>1 <Esc>
 
 " Profiling helpers
 nnoremap <silent> <leader>PI :exe ":profile start profile.log"<cr>:exe ":profile func *"<cr>:exe ":profile file *"<cr>
@@ -68,3 +67,13 @@ nnoremap <silent> <leader>PQ :exe ":profile pause"<cr>:noautocmd qall!<cr>
 " Single inserts
 nnoremap ,i :exec "normal i".nr2char(getchar())."\e"<CR>
 nnoremap ,a :exec "normal a".nr2char(getchar())."\e"<CR>
+
+" Copy file names to registry: Shortname, relative to working dir, full path
+nnoremap ,cs :let @"=expand('%:t')<CR>
+nnoremap ,cl :let @"=expand('%')<CR>
+nnoremap ,cf :let @"=expand('%:p')<CR>
+
+" Copy file names to clipboard: Shortname, relative to working dir, full path
+nnoremap <leader>cl :let @+=expand('%')<CR>
+nnoremap <leader>cs :let @+=expand('%:t')<CR>
+nnoremap <leader>cf :let @+=expand('%:p')<CR>
